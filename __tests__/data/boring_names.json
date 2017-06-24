@@ -1,0 +1,45 @@
+{
+  "name": "Boring American Names",
+  "system": "N/A",
+  "categories": ["real names"],
+  "author": "James Stuart",
+
+  "recipes": {
+    "full_name": {
+      "display": "Full Names",
+      "description": "First and Last Names",
+      "ingredients": [
+        "{{first_name}} {{last_name}}",
+        "{{first_name}} {{last_name}}",
+        "{{first_name}} {{last_name}}",
+        "{{first_name}} {{last_name}}",
+        "{{first_name}} {{last_name}} {{suffix}}"
+      ]
+    },
+    "double_first_name": {
+      "display": "Double First Name",
+      "ingredients": [
+        "{{first_name}} {{first_name}}"
+      ]
+    },
+    "first_name": {
+      "only_text": true,
+      "display": "First Names",
+      "ingredients": [
+        "Alice", "Bob", "Charles", "Dave"
+      ]
+    },
+    "last_name": {
+      "only_text": true,
+      "display": "Last Names",
+      "ingredients": [
+        "Smith", "Doe", "Johnson", "Williams"
+      ]
+    },
+    "suffix": {
+      "only_text": true,
+      "display": false,
+      "ingredients": ["Jr", "Sr", "III"]
+    }
+  }
+}
