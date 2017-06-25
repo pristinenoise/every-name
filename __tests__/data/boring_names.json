@@ -8,38 +8,69 @@
     "full_name": {
       "display": "Full Names",
       "description": "First and Last Names",
-      "ingredients": [
-        "{{first_name}} {{last_name}}",
-        "{{first_name}} {{last_name}}",
-        "{{first_name}} {{last_name}}",
-        "{{first_name}} {{last_name}}",
-        "{{first_name}} {{last_name}} {{suffix}}"
-      ]
+      "variants": {
+        "base": {
+          "display": "All",
+          "ingredients": [
+            "{{first_name}} {{last_name}}",
+            "{{first_name}} {{last_name}}",
+            "{{first_name}} {{last_name}}",
+            "{{first_name}} {{last_name}}",
+            "{{first_name}} {{last_name}} {{suffix}}"
+          ]
+        }
+      }
     },
     "double_first_name": {
       "display": "Double First Name",
-      "ingredients": [
-        "{{first_name}} {{first_name}}"
-      ]
+      "variants": {
+        "base": {
+          "display": "All",
+          "ingredients": [
+            "{{first_name}} {{first_name}}"
+          ]
+        }
+      }
     },
     "first_name": {
-      "only_text": true,
       "display": "First Names",
-      "ingredients": [
-        "Alice", "Bob", "Charles", "Dave"
-      ]
+      "variants": {
+        "base":  {
+          "display": "All",
+          "ingredients": [
+            "{{first_name$women}}",
+            "{{first_name$men}}"
+          ]
+        },
+        "men":  {
+          "display": "Men",
+          "ingredients": [ "Bob", "Charles", "Dave" ]
+        },
+        "women":  {
+          "display": "Women",
+          "ingredients": [ "Alice", "Evelyn" ]
+        }
+      }
     },
     "last_name": {
-      "only_text": true,
       "display": "Last Names",
-      "ingredients": [
-        "Smith", "Doe", "Johnson", "Williams"
-      ]
+      "variants": {
+        "base": {
+          "display": "All",
+          "ingredients": [
+            "Smith", "Doe", "Johnson", "Williams"
+          ]
+        }
+      }
     },
     "suffix": {
-      "only_text": true,
       "display": false,
-      "ingredients": ["Jr", "Sr", "III"]
+      "variants": {
+        "base": {
+          "display": "All",
+          "ingredients": ["Jr", "Sr", "III"]
+        }
+      }
     }
   }
 }

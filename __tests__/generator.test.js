@@ -1,3 +1,5 @@
+/* eslint-env jest */
+
 import _ from 'lodash'
 
 import Generator from '../src/Generator'
@@ -27,30 +29,30 @@ describe('Generator', () => {
   })
 
   it('can generate an ingredient from a simple text-only recipe', () => {
-    const ingredients = boringNames.recipes.first_name.ingredients
+    const ingredients = boringNames.recipes.last_name.variants.base.ingredients
     for (let i = 0; i < 100; i += 1) {
-      expect(ingredients).toContain(generator.makeName('first_name'))
+      expect(ingredients).toContain(generator.makeName('last_name'))
     }
   })
 
   it('can use generate more items than there are ingredients', () => {
-    const names = generator.makeNames('first_name', 5)
+    const names = generator.makeNames('first_name', 6)
 
-    expect(names).toEqual(['Dave', 'Charles', 'Bob', 'Dave', 'Charles'])
+    expect(names).toEqual(['Dave', 'Evelyn', 'Charles', 'Alice', 'Bob', 'Evelyn'])
   })
 
   it('can generate multiple names on the same line', () => {
     const names = generator.makeName('double_first_name', 1)
 
-    expect(names).toEqual('Dave Charles')
+    expect(names).toEqual('Dave Evelyn')
   })
 
   it('can use a stub to generate items', () => {
-    const name1 = generator.makeName('first_name')
-    const name2 = generator.makeName('first_name')
+    const name1 = generator.makeName('last_name')
+    const name2 = generator.makeName('last_name')
 
-    expect(name1).toEqual('Dave')
-    expect(name2).toEqual('Charles')
+    expect(name1).toEqual('Williams')
+    expect(name2).toEqual('Johnson')
   })
 
   it('can generate a complex item', () => {
