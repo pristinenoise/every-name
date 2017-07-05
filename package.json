@@ -1,6 +1,6 @@
 {
   "name": "every-name",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "A name generator that lets you use combinations of templates to dynamic make complex names ",
   "homepage": "https://github.com/pristinenoise/every-name",
   "author": "James Stuart <james.stuart@gmail.com>",

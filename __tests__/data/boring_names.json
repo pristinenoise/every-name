@@ -4,6 +4,7 @@
   "categories": ["real names"],
   "author": "James Stuart",
 
+  "recipeOrder": ["double_first_name", "full_name", "first_name", "last_name"],
   "recipes": {
     "full_name": {
       "display": "Full Names",

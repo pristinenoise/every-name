@@ -10,8 +10,70 @@ function NameGenerator (source) {
     return source.recipes[key]
   }
 
+  function getRecipeDisplay (key) {
+    return source.recipes[key].display
+  }
+
+  function getVariant (key) {
+    return source.recipes[key]
+  }
+
+  function getDefaultRecipeKey () {
+    if (source.recipeOrder) {
+      return source.recipeOrder[0]
+    }
+
+    if (source.recipes.base) {
+      return 'base'
+    }
+
+    return Object.keys(source.recipes)[0]
+  }
+
+  function getDefaultVariantKey (recipeKey) {
+    const recipe = getRecipe(recipeKey)
+
+    if (recipe.variantOrder) {
+      return recipe.variantOrder[0]
+    }
+
+    if (recipe.variants.base) {
+      return 'base'
+    }
+
+    return Object.keys(recipe.variants)[0]
+  }
+
+  function getDefaultKeys () {
+    const recipeKey = getDefaultRecipeKey()
+
+    return {
+      recipeKey: recipeKey,
+      variantKey: getDefaultVariantKey(recipeKey)
+    }
+  }
+
   function recipesForDisplay () {
-    return Object.keys(source.recipes).filter(key => (getRecipe(key).display !== false))
+    return Object.keys(source.recipes).reduce((acc, key) => {
+      const recipe = getRecipe(key)
+      if (recipe.display !== false) {
+        acc[key] = recipe.display
+      }
+
+      return acc
+    }, {})
+  }
+
+  function variantsForRecipe (recipe) {
+    const variants = getRecipe(recipe).variants
+    return Object.keys(variants).reduce((acc, key) => {
+      const variant = variants[key]
+      if (variant.display !== false) {
+        acc[key] = variant.display
+      }
+
+      return acc
+    }, {})
   }
 
   // keeps a shuffled list of ingredients so we don't get too many duplicates.
@@ -88,7 +150,11 @@ function NameGenerator (source) {
   return {
     getRecipe,
     getSourceName,
+    getDefaultKeys,
+    getDefaultRecipeKey,
+    getDefaultVariantKey,
     recipesForDisplay,
+    variantsForRecipe,
     makeName,
     makeNames
   }

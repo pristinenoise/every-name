@@ -25,7 +25,21 @@ describe('Generator', () => {
   })
 
   it('can make a list of the recipes for display', () => {
-    expect(generator.recipesForDisplay()).toEqual(['full_name', 'double_first_name', 'first_name', 'last_name'])
+    expect(generator.recipesForDisplay()).toEqual({
+      'full_name': 'Full Names',
+      'double_first_name': 'Double First Name',
+      'first_name': 'First Names',
+      'last_name': 'Last Names'
+    })
+  })
+
+  it('can make a list of the variants for a given recipe', () => {
+    expect(generator.variantsForRecipe('full_name')).toEqual({'base': 'All'})
+    expect(generator.variantsForRecipe('first_name')).toEqual({
+      'base': 'All',
+      'men': 'Men',
+      'women': 'Women'
+    })
   })
 
   it('can generate an ingredient from a simple text-only recipe', () => {
@@ -33,6 +47,13 @@ describe('Generator', () => {
     for (let i = 0; i < 100; i += 1) {
       expect(ingredients).toContain(generator.makeName('last_name'))
     }
+  })
+
+  it('can give you default keys for a given set of recipes', () => {
+    const {recipeKey, variantKey} = generator.getDefaultKeys()
+
+    expect(recipeKey).toEqual('double_first_name')
+    expect(variantKey).toEqual('base')
   })
 
   it('can use generate more items than there are ingredients', () => {
