@@ -1,8 +1,8 @@
 {
   "name": "every-name",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "A name generator that lets you use combinations of templates to dynamic make complex names ",
-  "homepage": "https://github.com/pristinenoise/every-name",
+  "homepage": "https://github.com/pristinenoise/every-name#readme",
   "author": "James Stuart <james.stuart@gmail.com>",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -26,7 +26,6 @@
   "bugs": {
     "url": "https://github.com/pristinenoise/every-name/issues"
   },
-  "homepage": "https://github.com/pristinenoise/every-name#readme",
   "dependencies": {
     "babel-cli": "^6.24.1",
     "babel-jest": "^20.0.3",

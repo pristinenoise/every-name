@@ -57,11 +57,11 @@ function NameGenerator (source) {
     return Object.keys(source.recipes).reduce((acc, key) => {
       const recipe = getRecipe(key)
       if (recipe.display !== false) {
-        acc[key] = recipe.display
+        acc.push({ key, display: recipe.display })
       }
 
       return acc
-    }, {})
+    }, [])
   }
 
   function variantsForRecipe (recipe) {
@@ -69,11 +69,11 @@ function NameGenerator (source) {
     return Object.keys(variants).reduce((acc, key) => {
       const variant = variants[key]
       if (variant.display !== false) {
-        acc[key] = variant.display
+        acc.push({ key, display: variant.display })
       }
 
       return acc
-    }, {})
+    }, [])
   }
 
   // keeps a shuffled list of ingredients so we don't get too many duplicates.

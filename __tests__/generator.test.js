@@ -25,21 +25,23 @@ describe('Generator', () => {
   })
 
   it('can make a list of the recipes for display', () => {
-    expect(generator.recipesForDisplay()).toEqual({
-      'full_name': 'Full Names',
-      'double_first_name': 'Double First Name',
-      'first_name': 'First Names',
-      'last_name': 'Last Names'
-    })
+    expect(generator.recipesForDisplay()).toEqual([
+      {key: 'full_name', display: 'Full Names'},
+      {key: 'double_first_name', display: 'Double First Name'},
+      {key: 'first_name', display: 'First Names'},
+      {key: 'last_name', display: 'Last Names'}
+    ])
   })
 
   it('can make a list of the variants for a given recipe', () => {
-    expect(generator.variantsForRecipe('full_name')).toEqual({'base': 'All'})
-    expect(generator.variantsForRecipe('first_name')).toEqual({
-      'base': 'All',
-      'men': 'Men',
-      'women': 'Women'
-    })
+    expect(generator.variantsForRecipe('full_name')).toEqual([
+      {key: 'base', display: 'All'}
+    ])
+    expect(generator.variantsForRecipe('first_name')).toEqual([
+      {key: 'base', display: 'All'},
+      {key: 'men', display: 'Men'},
+      {key: 'women', display: 'Women'}
+    ])
   })
 
   it('can generate an ingredient from a simple text-only recipe', () => {
