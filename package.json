@@ -1,6 +1,6 @@
 {
   "name": "every-name",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "description": "A name generator that lets you use combinations of templates to dynamic make complex names ",
   "homepage": "https://github.com/pristinenoise/every-name#readme",
   "author": "James Stuart <james.stuart@gmail.com>",
@@ -8,9 +8,10 @@
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && tsc -p . && rm -fr dist/tests && mv dist/src/** dist/ && rm -rf dist/src",
+    "build": "rm -rf dist && tsc -p . && rm -fr dist/tests && mv dist/src/** dist/ && rm -rf dist/src && rm -rf dist/__tests__",
+    "test": "jest",
     "lint": "yarn run eslint --ext=ts,tsx src/**/* __tests__/**/*",
-    "prepublish": "npm run build"
+    "prepublish": "yarn run lint && yarn run test"
   },
   "repository": {
     "type": "git",
@@ -26,18 +27,21 @@
     "url": "https://github.com/pristinenoise/every-name/issues"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4",
-    "coveralls": "^3.0.3",
-    "lodash": "^4.17.11",
-    "mustache": "^3.0.1"
+    "lodash": "^4.17.15",
+    "mustache": "^3.1.0"
   },
   "devDependencies": {
+    "coveralls": "^3.0.7",
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-typescript": "^7.7.2",
     "@types/jest": "^24.0.22",
     "@types/lodash": "^4.14.146",
     "@types/mustache": "^0.8.32",
     "@types/node": "^12.12.7",
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
+    "babel-jest": "^24.9.0",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
@@ -47,7 +51,7 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.js"
+      "src/**/*.ts"
     ],
     "coverageThreshold": {
       "global": {

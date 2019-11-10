@@ -40,4 +40,5 @@ yarn test
 
 ### Changelog
 
+* 0.8.0  - updated to typescript
 * 0.7.2  - updated to babel 7

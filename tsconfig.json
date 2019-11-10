@@ -10,6 +10,7 @@
     "removeComments": false,
     "noImplicitAny": true,
     "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
     "noUnusedLocals": true,
     "pretty": true
   }

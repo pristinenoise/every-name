@@ -3,7 +3,6 @@
   "system": "N/A",
   "categories": ["real names"],
   "author": "James Stuart",
-
   "recipeOrder": ["double_first_name", "full_name", "first_name", "last_name"],
   "recipes": {
     "full_name": {
@@ -27,29 +26,24 @@
       "variants": {
         "base": {
           "display": "All",
-          "ingredients": [
-            "{{first_name}} {{first_name}}"
-          ]
+          "ingredients": ["{{first_name}} {{first_name}}"]
         }
       }
     },
     "first_name": {
       "display": "First Names",
       "variants": {
-        "base":  {
+        "base": {
           "display": "All",
-          "ingredients": [
-            "{{first_name$women}}",
-            "{{first_name$men}}"
-          ]
+          "ingredients": ["{{first_name$women}}", "{{first_name$men}}"]
         },
-        "men":  {
+        "men": {
           "display": "Men",
-          "ingredients": [ "Bob", "Charles", "Dave" ]
+          "ingredients": ["Bob", "Charles", "Dave"]
         },
-        "women":  {
+        "women": {
           "display": "Women",
-          "ingredients": [ "Alice", "Evelyn" ]
+          "ingredients": ["Alice", "Evelyn"]
         }
       }
     },
@@ -58,14 +52,12 @@
       "variants": {
         "base": {
           "display": "All",
-          "ingredients": [
-            "Smith", "Doe", "Johnson", "Williams"
-          ]
+          "ingredients": ["Smith", "Doe", "Johnson", "Williams"]
         }
       }
     },
     "suffix": {
-      "display": false,
+      "display": "",
       "variants": {
         "base": {
           "display": "All",

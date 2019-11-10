@@ -1,5 +1,5 @@
-import _ from "lodash";
-import Mustache from "mustache";
+import * as _ from "lodash";
+import * as Mustache from "mustache";
 
 export interface RecipeFunctionHash {
   [ingredientKey: string]: () => string;
@@ -96,7 +96,9 @@ function BuildNameGenerator(source: Source): NameGenerator {
   function recipesForDisplay(): RecipeDisplayInfo[] {
     return Object.keys(source.recipes).reduce((acc, key) => {
       const recipe = getRecipe(key);
-      acc.push({ key, display: recipe.display });
+      if (recipe.display != "") {
+        acc.push({ key, display: recipe.display });
+      }
 
       return acc;
     }, []);
@@ -106,7 +108,9 @@ function BuildNameGenerator(source: Source): NameGenerator {
     const variants = getRecipe(recipeKey).variants;
     return Object.keys(variants).reduce((acc, key) => {
       const variant = variants[key];
-      acc.push({ key, display: variant.display });
+      if (variant.display != "") {
+        acc.push({ key, display: variant.display });
+      }
 
       return acc;
     }, []);
@@ -142,7 +146,12 @@ function BuildNameGenerator(source: Source): NameGenerator {
       throw new Error(`Ingredient specified by key ${recipeKey} not found!`);
     }
 
-    cachedIngredients[recipeKey] = _.shuffle(_.clone(ingredients));
+    if (process.env.EVERY_NAME_FIX_SHUFFLE == "true") {
+      cachedIngredients[ingredientKey] = _.reverse(_.clone(ingredients));
+    } else {
+      cachedIngredients[ingredientKey] = _.shuffle(_.clone(ingredients));
+    }
+
     cachedIngredientsThreshold[ingredientKey] = ingredients.length >= 5 ? 1 : 0;
 
     return cachedIngredients[ingredientKey].shift();

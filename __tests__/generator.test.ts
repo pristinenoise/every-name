@@ -1,14 +1,18 @@
 /* eslint-env jest */
 
-import _ from 'lodash'
+import * as boringAmericanNames from "./data/boring_names.json";
 
-import Generator from '../src/Generator'
+process.env.EVERY_NAME_FIX_SHUFFLE = "true";
 
-import boringNames from './data/boring_names.json'
+import BuildNameGenerator, {
+  Source,
+  NameGenerator
+} from "../src/BuildNameGenerator";
 
-describe('Generator', () => {
-  let generator
-  const mockShuffle = jest.fn(a => _.reverse(a))
+describe("BuildNameGenerator", () => {
+  const boringSource: Source = boringAmericanNames;
+
+  let generator: NameGenerator;
 
   // This, instead of randomizing each array, just reverses the array
   // for purposes of picking ingredients This means for testing, you
@@ -16,71 +20,78 @@ describe('Generator', () => {
   // one element left. It will skip that element, and return to the bottom.
 
   beforeEach(() => {
-    _.shuffle = mockShuffle
-    generator = Generator(boringNames)
-  })
+    generator = BuildNameGenerator(boringSource);
+  });
 
-  it('can be initialized with a given source', () => {
-    expect(generator.getSourceName()).toBe('Boring American Names')
-  })
+  it("can be initialized with a given source", () => {
+    expect(generator.getSourceName()).toBe("Boring American Names");
+  });
 
-  it('can make a list of the recipes for display', () => {
+  it("can make a list of the recipes for display", () => {
     expect(generator.recipesForDisplay()).toEqual([
-      {key: 'full_name', display: 'Full Names'},
-      {key: 'double_first_name', display: 'Double First Name'},
-      {key: 'first_name', display: 'First Names'},
-      {key: 'last_name', display: 'Last Names'}
-    ])
-  })
+      { key: "full_name", display: "Full Names" },
+      { key: "double_first_name", display: "Double First Name" },
+      { key: "first_name", display: "First Names" },
+      { key: "last_name", display: "Last Names" }
+    ]);
+  });
 
-  it('can make a list of the variants for a given recipe', () => {
-    expect(generator.variantsForRecipe('full_name')).toEqual([
-      {key: 'base', display: 'All'}
-    ])
-    expect(generator.variantsForRecipe('first_name')).toEqual([
-      {key: 'base', display: 'All'},
-      {key: 'men', display: 'Men'},
-      {key: 'women', display: 'Women'}
-    ])
-  })
+  it("can make a list of the variants for a given recipe", () => {
+    expect(generator.variantsForRecipe("full_name")).toEqual([
+      { key: "base", display: "All" }
+    ]);
+    expect(generator.variantsForRecipe("first_name")).toEqual([
+      { key: "base", display: "All" },
+      { key: "men", display: "Men" },
+      { key: "women", display: "Women" }
+    ]);
+  });
 
-  it('can generate an ingredient from a simple text-only recipe', () => {
-    const ingredients = boringNames.recipes.last_name.variants.base.ingredients
+  it("can generate an ingredient from a simple text-only recipe", () => {
+    const ingredients =
+      boringSource.recipes.last_name.variants.base.ingredients;
     for (let i = 0; i < 100; i += 1) {
-      expect(ingredients).toContain(generator.makeName('last_name'))
+      expect(ingredients).toContain(generator.makeName("last_name"));
     }
-  })
+  });
 
-  it('can give you default keys for a given set of recipes', () => {
-    const {recipeKey, variantKey} = generator.getDefaultKeys()
+  it("can give you default keys for a given set of recipes", () => {
+    const { recipeKey, variantKey } = generator.getDefaultKeys();
 
-    expect(recipeKey).toEqual('double_first_name')
-    expect(variantKey).toEqual('base')
-  })
+    expect(recipeKey).toEqual("double_first_name");
+    expect(variantKey).toEqual("base");
+  });
 
-  it('can use generate more items than there are ingredients', () => {
-    const names = generator.makeNames('first_name', 6)
+  it("can use generate more items than there are ingredients", () => {
+    const names = generator.makeNames("first_name", 6);
 
-    expect(names).toEqual(['Dave', 'Evelyn', 'Charles', 'Alice', 'Bob', 'Evelyn'])
-  })
+    expect(names).toEqual([
+      "Dave",
+      "Evelyn",
+      "Charles",
+      "Alice",
+      "Bob",
+      "Evelyn"
+    ]);
+  });
 
-  it('can generate multiple names on the same line', () => {
-    const names = generator.makeName('double_first_name', 1)
+  it("can generate multiple names on the same line", () => {
+    const names = generator.makeName("double_first_name");
 
-    expect(names).toEqual('Dave Evelyn')
-  })
+    expect(names).toEqual("Dave Evelyn");
+  });
 
-  it('can use a stub to generate items', () => {
-    const name1 = generator.makeName('last_name')
-    const name2 = generator.makeName('last_name')
+  it("can use a stub to generate items", () => {
+    const name1 = generator.makeName("last_name");
+    const name2 = generator.makeName("last_name");
 
-    expect(name1).toEqual('Williams')
-    expect(name2).toEqual('Johnson')
-  })
+    expect(name1).toEqual("Williams");
+    expect(name2).toEqual("Johnson");
+  });
 
-  it('can generate a complex item', () => {
-    const fullName = generator.makeName('full_name')
+  it("can generate a complex item", () => {
+    const fullName = generator.makeName("full_name");
 
-    expect(fullName).toEqual('Dave Williams III')
-  })
-})
+    expect(fullName).toEqual("Dave Williams III");
+  });
+});
