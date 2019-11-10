@@ -148,17 +148,6 @@ function BuildNameGenerator(source: Source): NameGenerator {
     return cachedIngredients[ingredientKey].shift();
   }
 
-  function makeName(ingredientKey: string): string {
-    return Mustache.render(
-      fetchIngredient(ingredientKey),
-      recipeFunctionList()
-    );
-  }
-
-  function makeNames(ingredientKey: string, count: number): string[] {
-    return _.times(count, () => makeName(ingredientKey));
-  }
-
   let cachedRecipeFunctionHashInitialized = false;
   let cachedRecipeFunctionHash: RecipeFunctionHash = {};
 
@@ -173,7 +162,7 @@ function BuildNameGenerator(source: Source): NameGenerator {
       const recipe = source.recipes[key];
       Object.keys(recipe.variants).forEach(variant => {
         const keyName = `${key}$${variant}`;
-        const func: () => string = () => makeName(keyName);
+        const func: () => string = () => makeName(keyName); // eslint-disable-line @typescript-eslint/no-use-before-define
         list[keyName] = func;
 
         if (variant === "base") {
@@ -186,6 +175,17 @@ function BuildNameGenerator(source: Source): NameGenerator {
     cachedRecipeFunctionHashInitialized = true;
 
     return cachedRecipeFunctionHash;
+  }
+
+  function makeName(ingredientKey: string): string {
+    return Mustache.render(
+      fetchIngredient(ingredientKey),
+      recipeFunctionHash()
+    );
+  }
+
+  function makeNames(ingredientKey: string, count: number): string[] {
+    return _.times(count, () => makeName(ingredientKey));
   }
 
   return {
