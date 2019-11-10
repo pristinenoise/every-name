@@ -6,12 +6,11 @@
   "author": "James Stuart <james.stuart@gmail.com>",
   "license": "MIT",
   "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "scripts": {
-    "build": "./node_modules/.bin/babel -d dist src/",
-    "test": "node node_modules/jest/bin/jest.js",
-    "test:coverage": "node node_modules/jest/bin/jest.js --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "test:watch": "node node_modules/jest/bin/jest.js --watch",
-    "prepublish": "npm run test && npm run build"
+    "build": "rm -rf dist && tsc -p . && rm -fr dist/tests && mv dist/src/** dist/ && rm -rf dist/src",
+    "lint": "yarn run eslint --ext=ts,tsx src/**/* __tests__/**/*",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -33,10 +32,18 @@
     "mustache": "^3.0.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
-    "jest": "^24.8.0"
+    "@types/jest": "^24.0.22",
+    "@types/lodash": "^4.14.146",
+    "@types/mustache": "^0.8.32",
+    "@types/node": "^12.12.7",
+    "@typescript-eslint/eslint-plugin": "^2.6.1",
+    "@typescript-eslint/parser": "^2.6.1",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.2"
   },
   "jest": {
     "collectCoverageFrom": [
