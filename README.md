@@ -40,5 +40,7 @@ yarn test
 
 ### Changelog
 
+* 0.9.0 - no longer exporting build name generator as default
+* 0.8.1 - trying to fix .d.ts file
 * 0.8.0  - updated to typescript
 * 0.7.2  - updated to babel 7

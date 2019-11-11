@@ -4,10 +4,7 @@ import * as boringAmericanNames from "./data/boring_names.json";
 
 process.env.EVERY_NAME_FIX_SHUFFLE = "true";
 
-import BuildNameGenerator, {
-  Source,
-  NameGenerator
-} from "../src/BuildNameGenerator";
+import { BuildNameGenerator, Source, NameGenerator } from "../src";
 
 describe("BuildNameGenerator", () => {
   const boringSource: Source = boringAmericanNames;
